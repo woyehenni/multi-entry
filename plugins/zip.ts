@@ -15,8 +15,8 @@ function analyzeHtml(htmlFilePath: string) {
   return results
 }
 
-export default function zip(modules: string[]) {
-  return modules.map((module) => {
+export default function zip(pages: Record<string, object>) {
+  return Object.keys(pages).map((module) => {
     return zipPack({
       moduleName: `dist/${module}.html`,
       outDir: 'build-zip',

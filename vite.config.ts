@@ -7,6 +7,18 @@ import htmlTemplate from 'vite-plugin-html-template-mpa'
 import htmlTransform from './plugins/vite-plugin-html-transform'
 import zip from './plugins/zip'
 
+const pages ={
+  app1: {
+    title: 'App1'
+  },
+  app2: {
+    title: 'App2'
+  },
+  app3: {
+    title: 'App3'
+  }
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -17,17 +29,7 @@ export default defineConfig({
     }),
     htmlTemplate({
       pagesDir: 'src/modules',
-      pages: {
-        app1: {
-          title: 'App1'
-        },
-        app2: {
-          title: 'App2'
-        },
-        app3: {
-          title: 'App3'
-        }
-      },
+      pages,
       buildCfg: {
         moveHtmlTop: true,
         moveHtmlDirTop: false,
@@ -49,7 +51,7 @@ export default defineConfig({
         }
       ]
     }),
-    zip(['app1', 'app2', 'app3'])
+    zip(pages)
   ],
   resolve: {
     alias: {
