@@ -5,11 +5,15 @@
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
+    "postbuild": "node ./postbuild.js",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "fs-extra": "^11.1.1",
+    "mkdirp": "^3.0.1",
+    "rimraf": "4",
     "vue": "^3.2.45"
   },
   "devDependencies": {
