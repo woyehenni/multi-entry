@@ -4,6 +4,8 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import mpa from 'vite-plugin-multi-pages'
 import htmlTemplate from 'vite-plugin-html-template-mpa'
+import htmlTransform from './plugins/vite-plugin-html-transform'
+import zip from './plugins/zip'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -31,10 +33,23 @@ export default defineConfig({
         moveHtmlDirTop: false,
         buildPrefixName: '',
         htmlHash: false,
-        htmlPrefixSearchValue: '../../../',
-        htmlPrefixReplaceValue: './'
+        // htmlPrefixSearchValue: '../../../',
+        // htmlPrefixReplaceValue: './'
       }
     }),
+    htmlTransform({
+      replaces: [
+        {
+          from: '\/js\/',
+          to: './js/'
+        },
+        {
+          from: '\/assets\/',
+          to: './assets/'
+        }
+      ]
+    }),
+    zip(['app1', 'app2', 'app3'])
   ],
   resolve: {
     alias: {
