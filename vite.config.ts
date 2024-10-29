@@ -4,6 +4,20 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import mpa from 'vite-plugin-multi-pages'
 import htmlTemplate from 'vite-plugin-html-template-mpa'
+import htmlTransform from './plugins/vite-plugin-html-transform'
+import zip from './plugins/zip'
+
+const pages ={
+  app1: {
+    title: 'App1'
+  },
+  app2: {
+    title: 'App2'
+  },
+  app3: {
+    title: 'App3'
+  }
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,26 +29,29 @@ export default defineConfig({
     }),
     htmlTemplate({
       pagesDir: 'src/modules',
-      pages: {
-        app1: {
-          title: 'App1'
-        },
-        app2: {
-          title: 'App2'
-        },
-        app3: {
-          title: 'App3'
-        }
-      },
+      pages,
       buildCfg: {
         moveHtmlTop: true,
         moveHtmlDirTop: false,
         buildPrefixName: '',
         htmlHash: false,
-        htmlPrefixSearchValue: '../../../',
-        htmlPrefixReplaceValue: './'
+        // htmlPrefixSearchValue: '../../../',
+        // htmlPrefixReplaceValue: './'
       }
     }),
+    htmlTransform({
+      replaces: [
+        {
+          from: '\/js\/',
+          to: './js/'
+        },
+        {
+          from: '\/assets\/',
+          to: './assets/'
+        }
+      ]
+    }),
+    zip(pages)
   ],
   resolve: {
     alias: {
